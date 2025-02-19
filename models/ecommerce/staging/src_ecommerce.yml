@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: ecommerce
+    database: assignment_db
+    schema: ecommerce
+    tables:
+      - name: raw_retail_data
+        description: stores raw data loaded from external source
+        columns:
+          - name: invoiceno
+            description: unique number for different stocks ordered
+          - name: stockcode
+            description: unique identifier for each stock purchased
+          - name: description
+            description: gives description of each stock purchased
+          - name: quantity
+            description: quantity of stocks ordered by customers
+          - name: invoicedate  # Corrected column name
+            description: date on quantity ordered
+          - name: unitprice
+            description: unit price of each stock
+          - name: customerid
+            description: unique identifier of customer
+          - name: country
+            description: country of the customer

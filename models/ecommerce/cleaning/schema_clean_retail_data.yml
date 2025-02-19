@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: clean_retail_data
+    description: model to store transformed data from raw data
+    columns:
+      - name: invoice_no
+        description: unique indentifier for a group of stocks purchased
+        tests:
+          - not_null
+      - name: stock_code
+        description: unique indentifier for each stock purchased
+        tests:
+          - not_null
+      - name: description
+        description: Provides details about the each stock purchased
+        tests:
+          - not_null
+      - name: quantity
+        description: Quantity of stocks purchased
+        tests:
+          - not_null
+      - name: invoice_date
+        description: date on which stocks were purchased
+        tests:
+          - not_null
+      - name: unit_price
+        description: price per stock purchased
+        tests:
+          - not_null
+      - name: customer_id
+        description: unique identifier for customers
+        tests:
+          - not_null
+      - name: country
+        description: country of customers
+        tests:
+          - not_null
