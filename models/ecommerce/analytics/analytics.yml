@@ -1,0 +1,168 @@
+version: 2
+
+models:
+  - name: customer_purchases
+    description: Gives a summary of transactions done by customers
+    columns:
+      - name: customer_id
+        description: customer id of customer who purchased the stock
+        tests:
+          - not_null
+      - name: invoice_no
+        description: unique identifier for quantity of stocks purchased
+        tests:
+          - unique
+          - not_null
+      - name: total_quantity
+        description: total quantity of stocks purchased by a customer
+        tests:
+          - not_null
+      - name: total_price
+        description: total price of each stock
+        tests:
+          - not_null
+      - name: avg_order_value
+        description: average of orders by a customer
+        tests:
+          - not_null
+      - name: total_revenue
+        description: sum total revenue generated (total_quantity X total_price)
+        tests:
+          - not_null
+  
+  - name: daily_sales
+    description: total sales per day
+    columns:
+      - name: sales_date
+        description: date on particular day
+        tests:
+          - not_null
+      - name: daily_sales
+        description: total sales value on particular day
+        tests:
+          - not_null
+  
+  - name: sales_with_growth
+    description: gives the daily sales growth by comparing with previous day
+    columns:
+      - name: sales_date
+        description: date on which sales growth is claculated
+        tests:
+          - not_null
+      - name: daily_sales
+        description: total sales value on particular day
+        tests:
+          - not_null
+      - name: previous_day_sales
+        description: returns sales of previous day
+      - name: sales_growth
+        description: calculates sales growth
+  
+  - name: customer_segments
+    description: gives customers a tag based on their purchases
+    columns:
+      - name: customer_id
+        description: unique indentifier for customers
+        tests:
+          - not_null
+      - name: total_quantity
+        description: total quantity ordered by customers (referenced from customer_purchases model)
+        tests:
+          - not_null
+      - name: total_revenue
+        description: total revenue generated (total_quantity X total_price, referenced from customer_purchases model)
+        tests:
+          - not_null
+      - name: avg_order_value
+        description: average of orders by customers
+        tests:
+          - not_null
+      - name: customer_segment
+        description: gives tags to customer purchase revenue based on conditions
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['High Value', 'Frequent Buyer', 'Low Value']
+  
+  
+
+  - name: rfm_base
+    description: base model for rfm
+    columns:
+      - name: customer_id
+        description: customer id of the customers
+        tests:
+          - not_null
+      - name: total_orders
+        description: total orders placed by a customer
+        tests:
+          - not_null
+      - name: total_monetary_value
+        description: total revenue generated from a customer
+        tests:
+          - not_null
+      - name: first_purchase_date
+        description: date on which a particular customer had placed the first order
+        tests:
+          - not_null
+      - name: last_purchase_date
+        description: date on which a particuler customer has placed the lastest order
+        tests:
+          - not_null
+      - name: total_days
+        description: total days gap between a customer's first and latest order (last_purchase_date - first_purchase_date)
+        tests:
+          - not_null
+      - name: purchase_frequency_per_day
+        description: frequency of number of orders placed by customer per day
+        tests:
+          - not_null
+
+  - name: rfm_scores
+    description: Gives scores to customers based on their purchases
+    columns:
+      - name: customer_id
+        description: unique indentifier for customer
+        tests:
+          - not_null
+      - name: recency
+        description: number days passed between latest purchase date and current date
+        tests:
+          - not_null
+      - name: purchase_frequency_per_day
+        description: frequency of number of orders placed per day
+        tests:
+          - not_null
+      - name: total_monetary_value
+        description: total revenue generated from customer purchases referenced from rfm_base
+        tests:
+          - not_null
+      - name: recency_score
+        description: scores the customers based on recency
+        tests:
+          - not_null
+      - name: frequency_score
+        description: scores the customers based on purchase_frequency_per_day
+        tests:
+          - not_null
+      - name: monetary_score
+        description: scores the customers based on their total revenue generated from them
+        tests:
+          - not_null
+
+  - name: rfm_segment
+    description: catergorizes customers based on their rfm_score
+    columns:
+      - name: rfm_score
+        description: gives the sum of recency_score + frequency_score + monetary_score which are referenced from rfm_scores model
+        tests:
+          - not_null
+      - name: rfm_segment
+        description: categories of customers based on their rfm_score
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - "Top Customers"
+                - "At-Risk Customers"
+                - "Average Customers"
