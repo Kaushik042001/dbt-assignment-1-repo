@@ -33,5 +33,4 @@ with
 {% endif %}
 
 -- Base selection for the model
-select *
-from incremental_raw_retail_data
+select * from incremental_raw_retail_data
