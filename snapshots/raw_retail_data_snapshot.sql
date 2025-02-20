@@ -27,3 +27,4 @@ select
 from {{ source("ecommerce", "raw_retail_data") }}
 
 {% endsnapshot %}
+
