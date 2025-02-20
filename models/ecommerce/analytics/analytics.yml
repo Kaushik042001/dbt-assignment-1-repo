@@ -166,3 +166,5 @@ models:
                 - "Top Customers"
                 - "At-Risk Customers"
                 - "Average Customers"
+  - name: new_data
+    description: incremental model to display only new data is added into raw model

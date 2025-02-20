@@ -1,3 +1,10 @@
+{{
+  config(
+    materialized='table',
+    cluster_by = ['customer_id', 'invoice_date']  
+  )
+}}
+
 WITH clean_retail_data AS (
     SELECT 
         invoiceno AS invoice_no,
@@ -7,14 +14,11 @@ WITH clean_retail_data AS (
         invoicedate AS invoice_date,
         unitprice AS unit_price,
         customerid AS customer_id,
-        country,
-        ROW_NUMBER() OVER (PARTITION BY stockcode ORDER BY invoicedate DESC) AS row_num
+        country
     FROM {{ ref('stg_raw_retail_data') }}
-    WHERE 1=1
-    {{ filter_conditions(customer_id_null_filter=true, min_quantity=1) }}
+    WHERE 1=1 -- This ensures the macro conditions can append without syntax errors
+    {{ filter_conditions(customer_id_null_filter=true, min_quantity=1) }} -- macro for filter conditions
 )
 
--- Select only the first row for each distinct stock_code
-SELECT * 
-FROM clean_retail_data
-WHERE row_num = 1
+SELECT * FROM clean_retail_data 
+WHERE invoice_date = '2010-10-25'

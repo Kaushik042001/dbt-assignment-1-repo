@@ -16,7 +16,7 @@ sources:
             description: gives description of each stock purchased
           - name: quantity
             description: quantity of stocks ordered by customers
-          - name: invoicedate  # Corrected column name
+          - name: invoicedate 
             description: date on quantity ordered
           - name: unitprice
             description: unit price of each stock
@@ -24,3 +24,4 @@ sources:
             description: unique identifier of customer
           - name: country
             description: country of the customer
+
