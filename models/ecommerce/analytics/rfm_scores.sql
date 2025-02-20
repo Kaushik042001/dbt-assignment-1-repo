@@ -1,14 +1,16 @@
-SELECT
+select
 
     customer_id,
-    DATEDIFF('day', last_purchase_date, CURRENT_DATE) AS recency,
+    datediff('day', last_purchase_date, current_date) as recency,
     purchase_frequency_per_day,
     total_monetary_value,
 
     -- Assign RFM scores using NTILE
-    NTILE(5) OVER (ORDER BY DATEDIFF('day', CURRENT_DATE, last_purchase_date)) AS recency_score,
-    NTILE(5) OVER (ORDER BY purchase_frequency_per_day DESC) AS frequency_score,
-    NTILE(5) OVER (ORDER BY total_monetary_value DESC) AS monetary_score
+    ntile(5) over (
+        order by datediff('day', current_date, last_purchase_date)
+    ) as recency_score,
+    ntile(5) over (order by purchase_frequency_per_day desc) as frequency_score,
+    ntile(5) over (order by total_monetary_value desc) as monetary_score
 
-FROM {{ ref('rfm_base')}}
-ORDER BY frequency_score ASC
+from {{ ref("rfm_base") }}
+order by frequency_score asc

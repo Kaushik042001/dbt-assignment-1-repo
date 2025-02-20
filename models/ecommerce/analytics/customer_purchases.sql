@@ -1,3 +1,11 @@
+{{
+  config(
+    materialized='ephemeral'
+  )
+}}
+
+
+
 SELECT
 
     customer_id,
