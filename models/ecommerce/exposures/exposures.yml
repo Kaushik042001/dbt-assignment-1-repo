@@ -1,0 +1,21 @@
+exposures:
+  - name: customer_purchases_exposure
+    type: dashboard
+    owner:
+      name: "Kaushik Chari"
+      email: "kaushikchari1404@gmail.com"
+    description: "Dashboard displaying the top customer purchases based on total revenue, leveraging customer and sales data from clean retail data."
+    depends_on:
+      - ref('customer_purchases')  # This ensures lineage tracking for the referenced model
+    url: "https://lookerstudio.google.com/reporting/f02919e6-bb44-4cf5-be1a-a48c13619482"
+  
+  
+  - name: rfm_segment_exposure
+    type: dashboard
+    owner:
+      name: "Kaushik Chari"
+      email: "kaushikchari1404@gmail.com"
+    description: "Dashboard displaying the top customer purchases based on total revenue, leveraging customer and sales data from clean retail data."
+    depends_on:
+      - ref('rfm_segment')  # This ensures lineage tracking for the referenced model
+    url: "https://lookerstudio.google.com/reporting/f02919e6-bb44-4cf5-be1a-a48c13619482"

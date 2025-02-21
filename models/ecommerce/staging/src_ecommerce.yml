@@ -25,3 +25,8 @@ sources:
           - name: country
             description: country of the customer
 
+models:
+  - name: incremental_raw_retail_data
+    description: incremental model to capture data process new data in sources
+      
+
