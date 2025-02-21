@@ -118,6 +118,7 @@ models:
         tests:
           - not_null
 
+
   - name: rfm_scores
     description: Gives scores to customers based on their purchases
     columns:
@@ -150,6 +151,7 @@ models:
         tests:
           - not_null
 
+
   - name: rfm_segment
     description: catergorizes customers based on their rfm_score
     columns:
@@ -166,5 +168,3 @@ models:
                 - "Top Customers"
                 - "At-Risk Customers"
                 - "Average Customers"
-  - name: new_data
-    description: incremental model to display only new data is added into raw model
