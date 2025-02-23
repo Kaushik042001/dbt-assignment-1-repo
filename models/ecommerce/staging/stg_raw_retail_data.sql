@@ -12,3 +12,4 @@ with stg_raw_retail_data as (
 )
 
 select * from stg_raw_retail_data
+
