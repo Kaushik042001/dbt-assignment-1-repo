@@ -27,6 +27,3 @@ sources:
 
 
 
-models:
-  - name: unique_raw_retail_data_records
-    description: build on raw_retail_data model to uniquely identify each row
