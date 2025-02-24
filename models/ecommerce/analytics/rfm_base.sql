@@ -1,3 +1,5 @@
+
+
 select
     crd.customer_id,
     count(crd.invoice_no) as total_orders,

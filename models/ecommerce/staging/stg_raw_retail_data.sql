@@ -1,3 +1,7 @@
+{{ config(
+    cluster_by=['customerid', 'invoicedate']  
+) }}
+
 with stg_raw_retail_data as (
     select
         invoiceno,
