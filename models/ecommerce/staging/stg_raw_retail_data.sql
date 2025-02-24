@@ -1,4 +1,5 @@
 {{ config(
+    materialized='table',
     cluster_by=['customerid', 'invoicedate']  
 ) }}
 
