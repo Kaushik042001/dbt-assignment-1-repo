@@ -438,3 +438,48 @@ The get_total_revenue macro is a simple dbt macro designed to calculate the **to
     {{ quantity_col }} * {{ price_col }}
 {% endmacro %}
  ```
+
+ # Using Clustering in dbt for Performance Optimization
+
+## Introduction
+
+Clustering is a powerful technique to optimize query performance in Snowflake by grouping similar records together based on one or more columns. In this dbt project, clustering was leveraged to improve query efficiency and reduce cost by minimizing unnecessary data scanning.
+
+## Use Case for Clustering
+
+This dbt project involved transforming and modeling retail data from `stg_raw_retail_data`. Given the large volume of transactions, querying data for specific invoices, customers, and date ranges was inefficient without proper indexing. To address this, clustering was applied to optimize performance when querying frequently accessed columns.
+
+## Implementation Details
+
+### Selecting Clustering Keys
+
+To maximize performance, the following columns were identified as ideal clustering keys:
+
+- **`invoicedate`**: Queries often filter by date ranges for reporting.
+- **`customerid`**: Many analytical queries focus on customer-specific purchases.
+
+### Modifying the dbt Model
+
+In the dbt model, clustering was implemented using the `cluster_by` statement within the table materialization:
+
+```sql
+{{ config(
+    materialized='table',
+    cluster_by=['customerid', 'invoicedate']  
+) }}
+
+WITH stg_raw_retail_data AS (
+    SELECT
+        invoiceno,
+        stockcode,
+        description,
+        quantity,
+        CAST(invoicedate AS TIMESTAMP_NTZ) AS invoicedate,
+        unitprice,
+        customerid,
+        country
+    FROM {{ source("ecommerce", "raw_retail_data") }}
+)
+
+SELECT * FROM stg_raw_retail_data;
+```
