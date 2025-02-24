@@ -1,17 +1,24 @@
 {% snapshot unique_records_snapshot %}
 
-{{
-  config(
-    target_database='assignment_db',   
-    target_schema='dbt_kchari',        
-    unique_key='unique_id',            
-    strategy='timestamp',              
-    updated_at='invoice_date'          
-  )
-}}
+{{ config(
+    target_schema='dbt_kchari',
+    unique_key='unique_id',
+    strategy='check',
+    check_cols=['invoice_no', 'stock_code','description', 'quantity','invoice_date', 'unit_price', 'customer_id', 'country'],  
+    invalidate_hard_deletes=True
+) }}
 
-select * from {{ ref("unique_records") }}
+select
+    unique_id,
+    invoice_no,
+    stock_code,
+    description,
+    quantity,
+    invoice_date,
+    unit_price,
+    customer_id,
+    country
+from {{ ref("unique_records") }}
 
 {% endsnapshot %}
 
-select * from unique_records_snapshot

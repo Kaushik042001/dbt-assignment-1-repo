@@ -1,6 +1,5 @@
 {{
   config(
-    materialized='table',
     cluster_by = ['customer_id', 'invoice_date']  
   )
 }}
@@ -20,5 +19,4 @@ WITH clean_retail_data AS (
     {{ filter_conditions(customer_id_null_filter=true, min_quantity=1) }} -- macro for filter conditions
 )
 
-SELECT * FROM clean_retail_data 
-WHERE invoice_date = '2010-10-25'
+SELECT * FROM clean_retail_data

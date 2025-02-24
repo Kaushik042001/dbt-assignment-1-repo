@@ -37,14 +37,16 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   ecommerce:
+    +materialized: view
     staging:
-      materialized: "table"  
+      +materialized: view  
     cleaning:
-      materialized: "table"  
+      +materialized: view
     analytics:
-      materialized: "view"  
+      +materialized: table
     incremental_models:
-      materialized: incremental
+      +materialized: incremental
+
 
     
   
