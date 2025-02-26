@@ -6,7 +6,7 @@
     strategy='timestamp',  
     updated_at='invoice_date',  
     invalidate_hard_deletes=True
-    
+}}
 
 SELECT
     unique_id,
